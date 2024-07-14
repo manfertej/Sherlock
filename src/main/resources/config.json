@@ -1,0 +1,18 @@
+{
+    "comment" : "Sample file for Sherlock config",
+    "indexName" : "Products",
+    "searchableFields": ["name", "description"],
+    "responseFields": ["name", "description", "imageURL"],
+    "vectorFields": ["name", "description"],
+    "responseSize": 30,
+    
+    "CustomQuery" : {
+        "value" : true,
+        "query" : "Algo"
+    },
+
+    "weights": {
+        "text": 0.5,
+        "vector": 0.5
+    }
+}
