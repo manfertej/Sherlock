@@ -1,5 +1,22 @@
 spring:
   application:
     name: sherlock
+  servlet:
+    multipart:
+      max-file-size: 400MB
+      max-request-size: 400MB
+
 server:
   port: 8080
+
+elasticsearch:
+  url: "localhost:9200"
+
+management:
+  endpoint:
+    beans:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: beans
