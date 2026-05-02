@@ -20,3 +20,8 @@ management:
     web:
       exposure:
         include: beans
+
+feign:
+  vector:
+    url: "http://localhost:8000"
+    endpoint: "/vector"
