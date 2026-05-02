@@ -2,16 +2,15 @@ package dev.manfertej.sherlock.controller;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
+import dev.manfertej.sherlock.vector.VectorClient;
 import lombok.RequiredArgsConstructor;
-import org.springframework.aop.scope.ScopedProxyUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/index")
@@ -20,6 +19,7 @@ public class IndexController {
 
 
     private final ElasticsearchClient client;
+    private final VectorClient vectorClient;
 
     @PostMapping("/file")
     public ResponseEntity indexFile(@RequestParam("catalog") MultipartFile file) {
@@ -43,6 +43,12 @@ public class IndexController {
                 .index("products"));
 
         return null;
+    }
+
+
+    @GetMapping("/vector")
+    public List<Float> test() {
+        return vectorClient.vector("Something");
     }
 
 }
