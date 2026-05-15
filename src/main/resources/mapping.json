@@ -1,0 +1,51 @@
+{
+    "mappings": {
+        "properties": {
+            "id": {
+                "type": "long"
+            },
+            "category": {
+                "type": "keyword"
+            },
+            "name": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "subtitle": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "price": {
+                "type": "keyword"
+            },
+            "discount_price": {
+                "type": "keyword"
+            },
+            "main_image_url": {
+                "type": "keyword",
+                "index": false
+            },
+            "secondary_image_url": {
+                "type": "keyword",
+                "index": false
+            },
+            "nutritional_info": {
+                "type": "text",
+                "index": false
+            },
+            "embedding": {
+                "type": "dense_vector",
+                "index": true,
+                "similarity": "cosine"
+            }
+        }
+    }
+}
