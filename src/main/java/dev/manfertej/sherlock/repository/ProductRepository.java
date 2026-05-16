@@ -3,6 +3,7 @@ package dev.manfertej.sherlock.repository;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.elasticsearch.indices.ExistsRequest;
+import dev.manfertej.sherlock.model.Product;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +36,19 @@ public class ProductRepository {
     }
 
 
+    public void index(Product product) {
+        try {
+            client.index(i -> i
+                    .index(INDEX_NAME)
+                    .id(product.getId().toString())
+                    .document(product));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    private boolean indexExists() throws IOException {
+
+    private boolean indexExists() throws Exception {
         return client.indices().exists(ExistsRequest.of(request -> request.index(INDEX_NAME))).value();
     }
 

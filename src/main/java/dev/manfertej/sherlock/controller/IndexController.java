@@ -35,20 +35,7 @@ public class IndexController {
 
         indexService.indexFile(file);
 
-
-        return ResponseEntity.of(Optional.of("HOLA"));
-    }
-
-
-    @PostMapping("/creteIndex")
-    @SuppressWarnings("rawtypes")
-    public ResponseEntity createIndex() throws IOException {
-        
-
-        CreateIndexResponse response = client.indices().create(builder -> builder
-                .index("products"));
-
-        return null;
+        return ResponseEntity.of(Optional.of("Products indexed"));
     }
 
 }

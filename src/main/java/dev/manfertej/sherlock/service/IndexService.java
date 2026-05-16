@@ -3,6 +3,9 @@ package dev.manfertej.sherlock.service;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import dev.manfertej.sherlock.model.Product;
+import dev.manfertej.sherlock.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,10 +20,13 @@ import java.util.stream.StreamSupport;
 
 
 @Service
+@RequiredArgsConstructor
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class IndexService {
 
+    private final ProductRepository productRepository;
 
+    
     public void indexFile(MultipartFile file) throws Exception {
 
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
@@ -38,12 +44,11 @@ public class IndexService {
                     false
             );
 
-            stream.forEach(this::print);
+            stream.forEach(this.productRepository::index);
 
         } catch (Exception ex) {
             throw new Exception(ex.getCause().getMessage());
         }
-
     }
 
 
