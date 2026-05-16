@@ -2,6 +2,8 @@ package dev.manfertej.sherlock.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Product {
     Long id;
@@ -13,4 +15,5 @@ public class Product {
     String main_image_url;
     String secondary_image_url;
     String nutritional_info;
+    List<Long> embedding;
 }

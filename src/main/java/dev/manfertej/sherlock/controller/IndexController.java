@@ -2,6 +2,7 @@ package dev.manfertej.sherlock.controller;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
+import dev.manfertej.sherlock.service.IndexService;
 import dev.manfertej.sherlock.vector.VectorClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,27 +11,32 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/index")
 @RequiredArgsConstructor
+@SuppressWarnings({"rawtypes"})
 public class IndexController {
 
 
     private final ElasticsearchClient client;
     private final VectorClient vectorClient;
+    private final IndexService indexService;
 
     @PostMapping("/file")
-    public ResponseEntity indexFile(@RequestParam("catalog") MultipartFile file) {
+    public ResponseEntity indexFile(@RequestParam("catalog") MultipartFile file) throws Exception {
 
         if(file.isEmpty())
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("File is Empty");
 
+        indexService.indexFile(file);
 
-        return null;
+
+        return ResponseEntity.of(Optional.of("HOLA"));
     }
 
 
