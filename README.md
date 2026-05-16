@@ -5,6 +5,17 @@ A semantic search application powered by Elasticsearch and public embeddings mod
 
 
 ## Dependencies 
+### Elasticsearch
+Version: 8.19.12
+```bash
+sudo docker run -d --name elasticsearch   
+    -p 9200:9200
+    -e "discovery.type=single-node"   
+    -e "xpack.security.enabled=false"   
+    -- docker.elastic.co/elasticsearch/elasticsearch:8.19.12
+```
+
+### Vector
 For the project to work is necessary to have a connection to some vectorization 
 model to generate embeddings.
 
