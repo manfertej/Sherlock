@@ -5,7 +5,6 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import dev.manfertej.sherlock.model.Product;
 import dev.manfertej.sherlock.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +24,7 @@ import java.util.stream.StreamSupport;
 public class IndexService {
 
     private final ProductRepository productRepository;
-
+    private final VectorService vectorService;
     
     public void indexFile(MultipartFile file) throws Exception {
 
@@ -44,10 +43,13 @@ public class IndexService {
                     false
             );
 
-            stream.forEach(this.productRepository::index);
+            stream.forEach(p -> {
+                p.setEmbedding(vectorService.vectorize(p));
+                productRepository.index(p);
+            });
 
         } catch (Exception ex) {
-            throw new Exception(ex.getCause().getMessage());
+            throw new Exception(ex.getMessage());
         }
     }
 

@@ -1,7 +1,6 @@
 package dev.manfertej.sherlock.repository;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.elasticsearch.indices.ExistsRequest;
 import dev.manfertej.sherlock.model.Product;
 import jakarta.annotation.PostConstruct;
@@ -27,6 +26,8 @@ public class ProductRepository {
             log.info("Index already exists");
             return;
         }
+
+        log.info("Product index doesn't exists. Started creation.");
 
         client.indices().create(c -> c
                 .index(INDEX_NAME)

@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Optional;
 
 
@@ -21,9 +20,8 @@ import java.util.Optional;
 public class IndexController {
 
 
-    private final ElasticsearchClient client;
-    private final VectorClient vectorClient;
     private final IndexService indexService;
+
 
     @PostMapping("/file")
     public ResponseEntity indexFile(@RequestParam("catalog") MultipartFile file) throws Exception {

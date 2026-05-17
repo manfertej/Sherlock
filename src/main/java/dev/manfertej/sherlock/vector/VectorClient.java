@@ -4,6 +4,7 @@ package dev.manfertej.sherlock.vector;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface VectorClient {
     @GetMapping("${feign.vector.endpoint}/{string}")
     public List<Float> vector(@PathVariable String string);
 
-    @GetMapping
+    @PostMapping("${feign.vector.endpoint}")
     public List<Float> vector(@RequestBody Map<String, String> param);
 
 }

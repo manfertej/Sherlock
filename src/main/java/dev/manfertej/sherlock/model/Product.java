@@ -15,5 +15,5 @@ public class Product {
     String main_image_url;
     String secondary_image_url;
     String nutritional_info;
-    List<Long> embedding;
+    List<Float> embedding;
 }

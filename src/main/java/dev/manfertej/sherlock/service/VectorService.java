@@ -16,16 +16,24 @@ public class VectorService {
 
     private final VectorClient vectorClient;
 
-    public List<Float> vectorize(String string) {
-        return null;
-    }
 
     public List<Float> vectorize(Product product) {
-        return vectorClient.vector(Map.of(KEY, normalizeProduct(product)));
+
+        List<Float> algo = null;
+        try {
+            algo = vectorClient.vector(Map.of(KEY, normalizeProduct(product)));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return algo;
     }
 
 
+    // In this case it's just the name
+    // Usually we also use a detailed description, tags...
+    // But that's not available in this dataset
     private String normalizeProduct(Product product) {
-        return "Antonio";
+        return product.getName();
     }
 }
