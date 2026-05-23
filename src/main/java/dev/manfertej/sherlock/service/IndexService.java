@@ -3,7 +3,7 @@ package dev.manfertej.sherlock.service;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import dev.manfertej.sherlock.model.Product;
-import dev.manfertej.sherlock.repository.ProductRepository;
+import dev.manfertej.sherlock.repository.ProductsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +23,7 @@ import java.util.stream.StreamSupport;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class IndexService {
 
-    private final ProductRepository productRepository;
+    private final ProductsRepository productsRepository;
     private final VectorService vectorService;
     
     public void indexFile(MultipartFile file) throws Exception {
@@ -45,7 +45,7 @@ public class IndexService {
 
             stream.forEach(p -> {
                 p.setEmbedding(vectorService.vectorize(p));
-                productRepository.index(p);
+                productsRepository.index(p);
             });
 
         } catch (Exception ex) {

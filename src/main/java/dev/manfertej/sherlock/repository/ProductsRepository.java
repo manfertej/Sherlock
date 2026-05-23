@@ -11,10 +11,13 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 
+/**
+ * Repository to deal with the configuration
+ */
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class ProductRepository {
+public class ProductsRepository {
 
     private final ElasticsearchClient client;
     private static final String INDEX_NAME = "products";
