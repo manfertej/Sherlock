@@ -1,6 +1,4 @@
 # Sherlock
-My Bachelor's final project
-
 A semantic search application powered by Elasticsearch and public embeddings model.
 
 

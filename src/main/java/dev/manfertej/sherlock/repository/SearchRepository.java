@@ -24,7 +24,7 @@ public class SearchRepository {
      * @return
      * @throws Exception
      */
-    public List<Product> search(String query) throws Exception {
+    public List<Product> search(String query, List<Float> vectorizedQuery) throws Exception {
 
         SearchResponse<Product> result = client.search(s ->s
                 .index(INDEX_NAME)
@@ -33,6 +33,7 @@ public class SearchRepository {
                                 .query(query)
                                 .fields(List.of("name", "subtitle"))))
                         .knn(k -> k
+                                .queryVector(vectorizedQuery)
                                 .field("embedding")
                                 .k(10)
                                 .numCandidates(100))
@@ -62,6 +63,27 @@ public class SearchRepository {
                                 .multiMatch(m -> m
                                         .query(query)
                                         .fields(List.of("name", "subtitle"))))
+                        .source(src -> src
+                                .filter(f -> f
+                                        .excludes("embedding")))
+                ,Product.class
+        );
+
+        return result.hits().hits().stream()
+                .map(Hit::source)
+                .toList();
+    }
+
+
+    public List<Product> vectorSearch(List<Float> vectorizedQuery) throws Exception {
+
+        SearchResponse<Product> result = client.search(s ->s
+                        .index(INDEX_NAME)
+                        .knn(k -> k
+                                .queryVector(vectorizedQuery)
+                                .field("embedding")
+                                .k(10)
+                                .numCandidates(100))
                         .source(src -> src
                                 .filter(f -> f
                                         .excludes("embedding")))

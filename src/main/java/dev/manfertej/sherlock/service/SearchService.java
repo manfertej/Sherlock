@@ -12,6 +12,7 @@ import java.util.List;
 public class SearchService {
 
     private final SearchRepository repository;
+    private final VectorService vectorService;
 
     /**
      * Hybrid query
@@ -23,7 +24,7 @@ public class SearchService {
         List<Product> result;
 
         try {
-            result = repository.search(query);
+            result = repository.search(query, vectorService.vectorize(query));
         }
         catch (Exception e) {
             result = List.of();
@@ -39,6 +40,20 @@ public class SearchService {
 
         try {
             result = repository.textSearch(query);
+        }
+        catch (Exception e) {
+            result = List.of();
+        }
+
+        return result;
+    }
+
+    public List<Product> vectorSearch(String query) {
+
+        List<Product> result;
+
+        try {
+            result = repository.vectorSearch(vectorService.vectorize(query));
         }
         catch (Exception e) {
             result = List.of();
