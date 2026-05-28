@@ -29,4 +29,9 @@ public class SearchController {
         return searchService.textSearch(query);
     }
 
+    @GetMapping("/vector")
+    public List<Product> vectorSearch(@RequestParam String query) {
+        return searchService.vectorSearch(query);
+    }
+
 }
