@@ -29,17 +29,6 @@ public class VectorService {
         return algo;
     }
 
-    public List<Float> vectorize(String query) {
-        List<Float> algo = null;
-        try {
-            algo = vectorClient.vector(Map.of(KEY, query));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return algo;
-    }
-
 
     // In this case it's just the name
     // Usually we also use a detailed description, tags...
